@@ -21,7 +21,7 @@ module "vpc" {
   enable_dns_support   = true
 }
 
-# Create a security group
+# Create a security group for worker
 resource "aws_security_group" "boundary_worker_sg" {
   vpc_id = module.vpc.vpc_id
   name   = "boundary_worker_sg"
@@ -51,7 +51,7 @@ resource "aws_security_group" "boundary_worker_sg" {
   }
 }
 
-# Create an EC2 instance
+# Create an EC2 instance for worker
 resource "aws_instance" "worker_instance" {
   ami                         = "ami-0aff18ec83b712f05" # Update this to the latest Amazon Linux 2 AMI in your region
   instance_type               = "t2.small"
@@ -98,7 +98,7 @@ resource "aws_security_group" "boundary_target_sg" {
 }
 
 # Create an EC2 traget
-resource "aws_instance" "worker_instance" {
+resource "aws_instance" "target_instance" {
   ami                         = "ami-0aff18ec83b712f05" # Update this to the latest Amazon Linux 2 AMI in your region
   instance_type               = "t2.small"
   subnet_id                   = module.vpc.private_subnets[0]
